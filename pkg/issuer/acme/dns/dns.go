@@ -233,6 +233,11 @@ func (s *Solver) solverForIssuerProvider(providerName string) (solver, error) {
 			providerConfig.AzureDNS.ResourceGroupName,
 			providerConfig.AzureDNS.HostedZoneName,
 		)
+	case providerConfig.GRPC != nil:
+		impl, err = grpc.NewDNSProviderInsecure(
+			"dns:///dns.net.dreamhack.se",
+			5 * time.Minute,
+			time.Minute)
 	default:
 		return nil, fmt.Errorf("no dns provider config specified for provider %q", providerName)
 	}

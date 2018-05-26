@@ -151,6 +151,7 @@ type ACMEIssuerDNS01Provider struct {
 	Cloudflare *ACMEIssuerDNS01ProviderCloudflare `json:"cloudflare,omitempty"`
 	Route53    *ACMEIssuerDNS01ProviderRoute53    `json:"route53,omitempty"`
 	AzureDNS   *ACMEIssuerDNS01ProviderAzureDNS   `json:"azuredns,omitempty"`
+	GRPC       *ACMEIssuerDNS01ProviderGRPC       `json:"grpc,omitempty"`
 }
 
 // ACMEIssuerDNS01ProviderAkamai is a structure containing the DNS
@@ -196,6 +197,15 @@ type ACMEIssuerDNS01ProviderAzureDNS struct {
 
 	// + optional
 	HostedZoneName string `json:"hostedZoneName"`
+}
+
+type ACMEIssuerDNS01ProviderGRPC struct {
+	Service               string            `json:"service"`
+	ServerName            string            `json:"serverName"`
+	ClientCertificate     SecretKeySelector `json:"clientCertificateSecretRef"`
+	ClientCertificateKey  SecretKeySelector `json:"clientCertificateKeySecretRef"`
+	Timeout               string            `json:"timeout"`
+	Interval              string            `json:"interval"`
 }
 
 // IssuerStatus contains status information about an Issuer
